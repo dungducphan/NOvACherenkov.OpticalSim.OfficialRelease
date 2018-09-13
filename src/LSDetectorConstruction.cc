@@ -206,9 +206,9 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
    * Photon Transport Properties for Detector Surface
    * */
 
-  // std::ifstream pmtData("../Ham_R5912-100.csv");  // Hamamatsu R5912-100
-  // std::ifstream pmtData("../Ham_R10754.csv");   // Hamamatsu R10754
-  std::ifstream pmtData("../Ham_5912-03MOD2.csv"); // Hamamatsu R5912-03Mod2
+  // std::ifstream pmtData("../Ham_R5912-100.csv");   // Hamamatsu R5912-100
+  // std::ifstream pmtData("../Ham_R10754.csv");      // Hamamatsu R10754
+  std::ifstream pmtData("../Ham_R5912-03MOD2.csv");    // Hamamatsu R5912-03Mod2
   std::vector<G4double> wavelength, qe;
   double x, y;
   while (pmtData >> x >> y) {
