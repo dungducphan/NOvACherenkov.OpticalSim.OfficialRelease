@@ -47,6 +47,7 @@ target_link_libraries(LSsim ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Core Tree)
 set(LSsim_SCRIPTS
   vis.mac
   gui.mac
+  Dung.mac
   )
 
 foreach(_script ${LSsim_SCRIPTS})
