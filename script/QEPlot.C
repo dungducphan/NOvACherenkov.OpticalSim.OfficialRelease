@@ -6,7 +6,7 @@
 void QEPlot() {
   GeneralStyle();
 
-  std::ifstream QE_file("../Ham_8in_5912-100.csv");
+  std::ifstream QE_file("../Ham_R5912-100.csv");
   std::vector<double> wavelength_nm, qe;
   double x, y;
   while (QE_file >> x >> y) {
@@ -15,7 +15,7 @@ void QEPlot() {
   }
   QE_file.close();
 
-  std::ifstream QE_wrong_file("../M16Corrected2-3.csv");
+  std::ifstream QE_wrong_file("../Ham_R10754.csv");
   std::vector<double> wavelength_nm_wrong, qe_wrong;
   while (QE_wrong_file >> x >> y) {
     wavelength_nm_wrong.push_back(x);

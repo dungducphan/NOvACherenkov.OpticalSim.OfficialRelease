@@ -206,9 +206,9 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
    * Photon Transport Properties for Detector Surface
    * */
 
-//  std::ifstream m16data("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/Ham_8in_5912-100.csv");
-//  std::ifstream m16data("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/M16Corrected2-3.csv");
-  std::ifstream pmtData("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/Ham_8in_5912-03-MOD2.csv");
+  // std::ifstream pmtData("../Ham_R5912-100.csv");  // Hamamatsu R5912-100
+  // std::ifstream pmtData("../Ham_R10754.csv");   // Hamamatsu R10754
+  std::ifstream pmtData("../Ham_5912-03MOD2.csv"); // Hamamatsu R5912-03Mod2
   std::vector<G4double> wavelength, qe;
   double x, y;
   while (pmtData >> x >> y) {
@@ -229,11 +229,6 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
     efficiency_pmt[idx] = (qe.at(idx))/100.;
   }
 
-//  std::cout << wavelength.size() << std::endl;
-//  for (unsigned short int idx = 0; idx < wavelength.size(); idx++) {
-//    std::cout << ephoton_pmt[idx]/eV << " : " << efficiency_pmt[idx] << std::endl;
-//  }
-
   G4MaterialPropertiesTable *detectorMPT = new G4MaterialPropertiesTable();
   detectorMPT->AddProperty("REFLECTIVITY", ephoton_pmt, reflectivity_pmt, wavelength.size())->SetSpline(false);
   detectorMPT->AddProperty("EFFICIENCY",   ephoton_pmt, efficiency_pmt,   wavelength.size())->SetSpline(false);
@@ -244,13 +239,7 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
    * Photon Transport Properties for Mirror Surface
    * */
 
-// For simplified reflectivity
-//  G4double ephoton_mirror[4]      = {0.0001*eV, 1*eV, 10*eV, 100*eV};
-//  G4double reflectivity_mirror[4] = {0.9,0.9,0.9,0.9};
-//  G4double efficiency_mirror[4]   = {0.0,0.0,0.0,0.0};
-
-// For complex reflextivity
-  std::ifstream uvcutoff("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/cmake-build-debug/ESR-Anna.csv");
+  std::ifstream uvcutoff("../MylarRefl.csv");
   std::vector<G4double> wavelength_reflec, reflec;
   while (uvcutoff >> x >> y) {
     wavelength_reflec.push_back(x);
