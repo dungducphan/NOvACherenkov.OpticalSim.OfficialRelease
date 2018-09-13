@@ -31,11 +31,14 @@ public:
 private:
   /**
    * Detector Modification
+   * The nominal length of the CO2 tube is 2m. This parameter allows changing the length of the CO2 tube.
+   * Remember this is half of the additional length. It can be negative if you want a tube shorter than 2m.
    */
   G4double halfTubeLengthAddition = 0.50 * m;
 
   /**
    * WORLD
+   * The names hx, hy, hz indicates the value is just half of the actual dimension.
    */
   G4double world_hx = 20 * m;
   G4double world_hy = 20 * m;
@@ -58,12 +61,12 @@ private:
 
   /**
    * Detector VOLUME
+   * The names hx, hy, hz indicates the value is just half of the actual dimension.
    */
   G4double detector_hx = 0.05 * m;
   G4double detector_hy = 0.05 * m;
   G4double detector_radius = 4*2.54*cm;
   G4double detector_hz = 0.0001 * m;
-  //G4Box * detectorBox;
   G4Tubs * detectorBox;
   G4LogicalVolume * detectorLog;
   G4VPhysicalVolume * detectorPhy;
@@ -92,6 +95,5 @@ private:
   G4Material * fAl;
   G4Material * fCO2;
 };
-
 
 #endif
