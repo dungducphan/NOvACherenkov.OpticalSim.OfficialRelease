@@ -208,16 +208,16 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
 
 //  std::ifstream m16data("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/Ham_8in_5912-100.csv");
 //  std::ifstream m16data("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/M16Corrected2-3.csv");
-  std::ifstream m16data("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/Ham_8in_5912-03-MOD2.csv");
+  std::ifstream pmtData("/Users/dphan/nova.testbeam.cerenkov/optical.sim/tag_v2.0/nova.testbeam.cerenkov.simulation/Ham_8in_5912-03-MOD2.csv");
   std::vector<G4double> wavelength, qe;
   double x, y;
-  while (m16data >> x >> y) {
+  while (pmtData >> x >> y) {
     wavelength.push_back(x);
     qe.push_back(y);
     x = 0;
     y = 0;
   }
-  m16data.close();
+  pmtData.close();
 
   G4double *ephoton_pmt       = (G4double*) malloc(wavelength.size()* sizeof(G4double));
   G4double *reflectivity_pmt  = (G4double*) malloc(wavelength.size()* sizeof(G4double));
