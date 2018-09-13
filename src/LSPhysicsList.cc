@@ -30,6 +30,7 @@
 G4ThreadLocal G4int LSPhysicsList::fVerboseLevel = 0;
 G4ThreadLocal G4int LSPhysicsList::fMaxNumPhotonStep = 1;
 G4ThreadLocal G4Cerenkov* LSPhysicsList::fCerenkovProcess = 0;
+G4ThreadLocal G4OpRayleigh* LSPhysicsList::fOpRayleighProcess = 0;
 G4ThreadLocal G4OpBoundaryProcess* LSPhysicsList::fBoundaryProcess = 0;
 
 LSPhysicsList::LSPhysicsList() : G4VUserPhysicsList() {
@@ -64,20 +65,25 @@ void LSPhysicsList::ConstructParticle() {
 void LSPhysicsList::ConstructProcess() {
   AddTransportation();
   ConstructOp();
-  //ConstructDecay();
-  //ConstructEM();
+  /*
+   * Ignore irrelevant physics here
+   * ConstructDecay();
+   * ConstructEM();
+   *
+   */
 }
 
-void LSPhysicsList::ConstructOp()
-{
+void LSPhysicsList::ConstructOp() {
   fCerenkovProcess = new G4Cerenkov("Cerenkov");
   fCerenkovProcess->SetMaxNumPhotonsPerStep(fMaxNumPhotonStep);
   fCerenkovProcess->SetMaxBetaChangePerStep(1.0);
   fCerenkovProcess->SetTrackSecondariesFirst(true);
 
   fBoundaryProcess = new G4OpBoundaryProcess();
+  fOpRayleighProcess = new G4OpRayleigh();
 
   fCerenkovProcess->SetVerboseLevel(fVerboseLevel);
+  fOpRayleighProcess->SetVerboseLevel(fVerboseLevel);
   fBoundaryProcess->SetVerboseLevel(fVerboseLevel);
 
   auto particleIterator=GetParticleIterator();
@@ -93,6 +99,7 @@ void LSPhysicsList::ConstructOp()
     if (particleName == "opticalphoton") {
       G4cout << " AddDiscreteProcess to OpticalPhoton " << G4endl;
       pmanager->AddDiscreteProcess(fBoundaryProcess);
+      pmanager->AddDiscreteProcess(fOpRayleighProcess);
     }
   }
 }
@@ -149,8 +156,7 @@ void LSPhysicsList::ConstructEM()
   }
 }
 
-void LSPhysicsList::ConstructDecay()
-{
+void LSPhysicsList::ConstructDecay() {
   // Add Decay Process
   G4Decay* theDecayProcess = new G4Decay();
   auto particleIterator=GetParticleIterator();

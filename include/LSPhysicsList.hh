@@ -4,9 +4,11 @@
 #include "G4VUserPhysicsList.hh"
 
 #include "G4Cerenkov.hh"
+#include "G4OpRayleigh.hh"
 #include "G4OpBoundaryProcess.hh"
 
 class G4Cerenkov;
+class G4OpRayleigh;
 class G4OpBoundaryProcess;
 
 class LSPhysicsList: public G4VUserPhysicsList {
@@ -29,6 +31,7 @@ private:
   static G4ThreadLocal G4int fMaxNumPhotonStep;
   static G4ThreadLocal G4Cerenkov* fCerenkovProcess;
   static G4ThreadLocal G4OpBoundaryProcess* fBoundaryProcess;
+  static G4ThreadLocal G4OpRayleigh* fOpRayleighProcess;
 };
 
 #endif
