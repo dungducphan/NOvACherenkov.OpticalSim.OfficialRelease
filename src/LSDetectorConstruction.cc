@@ -24,19 +24,25 @@ void LSDetectorConstruction::BuildMaterial() {
   fAl = nist->FindOrBuildMaterial("G4_Al");
   fCO2 = nist->FindOrBuildMaterial("G4_CARBON_DIOXIDE");
 
-  /**
-   * Optical Properties of CO2
-   * */
+  G4Element* elN  = new G4Element("Nitrogen", "N", 7., 14.01*g/mole);
+  fN2 = new G4Material("N2", 1.25053*mg/cm3, 1);
+  fN2->AddElement(elN, 2);
+
+  // Optical properties
+  G4double photonEnery_N2[4] = {0.001*eV, 1*eV, 10*eV, 100*eV};
+  G4double refractiveIndex_N2[4] = {1.0003, 1.0003, 1.0003, 1.0003};
+  G4MaterialPropertiesTable* MPT_N2 = new G4MaterialPropertiesTable();
+  MPT_N2->AddProperty("RINDEX", photonEnery_N2, refractiveIndex_N2, 4)->SetSpline(true);
+  fN2->SetMaterialPropertiesTable(MPT_N2);
+
   G4double photonEnery_CO2[4] = {0.001*eV, 1*eV, 10*eV, 100*eV};
   G4double refractiveIndex_CO2[4] = {1.0004, 1.0004, 1.0004, 1.0004};
-
-  G4double photonEnery_Air[4] = {0.001*eV, 1*eV, 10*eV, 100*eV};
-  G4double refractiveIndex_Air[4] = {1.0000, 1.0000, 1.0000, 1.0000};
-
   G4MaterialPropertiesTable* MPT_CO2 = new G4MaterialPropertiesTable();
   MPT_CO2->AddProperty("RINDEX", photonEnery_CO2, refractiveIndex_CO2, 4)->SetSpline(true);
   fCO2->SetMaterialPropertiesTable(MPT_CO2);
 
+  G4double photonEnery_Air[4] = {0.001*eV, 1*eV, 10*eV, 100*eV};
+  G4double refractiveIndex_Air[4] = {1.0000, 1.0000, 1.0000, 1.0000};
   G4MaterialPropertiesTable* MPT_Air = new G4MaterialPropertiesTable();
   MPT_Air->AddProperty("RINDEX", photonEnery_Air, refractiveIndex_Air, 4)->SetSpline(true);
   fAir->SetMaterialPropertiesTable(MPT_Air);
@@ -102,7 +108,10 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
                          (1 * m) + halfTubeLengthAddition , //Dz, Half length in z
                          0     , //pSPhi,
                          twopi);   //pDPhi)
-  CO2Log = new G4LogicalVolume(CO2Box, fCO2,"CO2Log", 0, 0, 0);
+  // Using CO2 gas
+  // CO2Log = new G4LogicalVolume(CO2Box, fCO2,"CO2Log", 0, 0, 0);
+  // Using N2 gas
+  CO2Log = new G4LogicalVolume(CO2Box, fN2,"CO2Log", 0, 0, 0);
 
   // Set Visual Properties
   G4VisAttributes* targetVA = new G4VisAttributes();

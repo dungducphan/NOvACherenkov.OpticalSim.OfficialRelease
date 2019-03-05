@@ -11,7 +11,7 @@ LSRunAction::~LSRunAction() {
 void LSRunAction::BeginOfRunAction(const G4Run * run) {
   G4cout << "### Run " << run->GetRunID() << " start." << G4endl;
 
-  outputFilename = new TFile("CerenkovHit_1d5m_M16.root", "recreate");
+  outputFilename = new TFile("CerenkovHit_1d5m_R5912-03Mod2.root", "recreate");
   eventTree = new TTree("HitTree", "Hit Statistics");
   eventTree->Branch("eventHit", &eventHit, "eventHit/I");
   eventTree->Branch("wavelengthHit", &wavelengthHit, "wavelengthHit/D");

@@ -94,6 +94,7 @@ private:
   G4Material * fAir;
   G4Material * fAl;
   G4Material * fCO2;
+  G4Material * fN2;
 };
 
 #endif
