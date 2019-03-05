@@ -64,9 +64,9 @@ void LSPhysicsList::ConstructParticle() {
 
 void LSPhysicsList::ConstructProcess() {
   AddTransportation();
-  ConstructOp();
-  ConstructDecay();
-  ConstructEM();
+  //ConstructOp();
+  //ConstructDecay();
+  //ConstructEM();
 }
 
 void LSPhysicsList::ConstructOp() {

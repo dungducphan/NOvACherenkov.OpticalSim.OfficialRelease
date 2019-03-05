@@ -45,12 +45,10 @@ public :
 #ifdef HitAnalysis_cxx
 HitAnalysis::HitAnalysis(TTree *tree) : fChain(0)
 {
-// if parameter tree is not specified (or zero), connect the file
-// used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.CO2");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.NewBeam.N2");
       if (!f || !f->IsOpen()) {
-         f = new TFile("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.CO2");
+         f = new TFile("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.NewBeam.N2");
       }
       f->GetObject("HitTree",tree);
 

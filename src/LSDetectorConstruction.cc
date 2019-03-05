@@ -109,9 +109,9 @@ G4VPhysicalVolume * LSDetectorConstruction::Construct() {
                          0     , //pSPhi,
                          twopi);   //pDPhi)
   // Using CO2 gas
-  // CO2Log = new G4LogicalVolume(CO2Box, fCO2,"CO2Log", 0, 0, 0);
+  CO2Log = new G4LogicalVolume(CO2Box, fCO2,"CO2Log", 0, 0, 0);
   // Using N2 gas
-  CO2Log = new G4LogicalVolume(CO2Box, fN2,"CO2Log", 0, 0, 0);
+  // CO2Log = new G4LogicalVolume(CO2Box, fN2,"CO2Log", 0, 0, 0);
 
   // Set Visual Properties
   G4VisAttributes* targetVA = new G4VisAttributes();
