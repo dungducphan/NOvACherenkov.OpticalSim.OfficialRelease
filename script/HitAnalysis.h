@@ -35,7 +35,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop();
+   virtual double   Loop(double threshold);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };
@@ -48,9 +48,9 @@ HitAnalysis::HitAnalysis(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("./CerenkovHit_3d5m_M16.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.CO2");
       if (!f || !f->IsOpen()) {
-         f = new TFile("./CerenkovHit_3d5m_M16.root");
+         f = new TFile("../cmake-build-debug/CerenkovHit_1d5m_R5912-03Mod2.root.CO2");
       }
       f->GetObject("HitTree",tree);
 

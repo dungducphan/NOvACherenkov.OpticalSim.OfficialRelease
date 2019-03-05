@@ -4,7 +4,7 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 
-void HitAnalysis::Loop()
+double HitAnalysis::Loop(double threshold)
 {
 //   In a ROOT session, you can do:
 //      root> .L HitAnalysis.C
@@ -29,7 +29,7 @@ void HitAnalysis::Loop()
 // METHOD2: replace line
 //    fChain->GetEntry(jentry);       //read all branches
 //by  b_branchname->GetEntry(ientry); //read only this branch
-   if (fChain == 0) return;
+   if (fChain == 0) return 0;
 
    Long64_t nentries = fChain->GetEntriesFast();
 
@@ -39,8 +39,9 @@ void HitAnalysis::Loop()
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      if (eventHit > 5) eff++;
+      if (eventHit > threshold) eff++;
    }
 
-   std::cout << "Eff: " << ((double)eff * 100)/(double)nentries << std::endl;
+   std::cout << "Eff: " << ((double)eff * 100)/(double)nentries << " at " << threshold << " threshold." << std::endl;
+   return ((double)eff * 100)/(double)nentries;
 }
