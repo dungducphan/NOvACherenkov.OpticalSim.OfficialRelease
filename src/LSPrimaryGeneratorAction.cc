@@ -13,7 +13,7 @@ LSPrimaryGeneratorAction::LSPrimaryGeneratorAction() : G4VUserPrimaryGeneratorAc
 
   fRND.SetSeed(time(0));
   fRmean = 0 * m;
-  fRsigma = 7 * cm;
+  fRsigma = 7.62 * cm;
 }
 
 LSPrimaryGeneratorAction::~LSPrimaryGeneratorAction() {
@@ -30,7 +30,7 @@ void LSPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent) {
   fParticleGun->SetParticleEnergy(GunEnergyInThisEvent);
 
   // Randomize Momentum Direction
-  fPRmean = 0.02*MeV;
+  fPRmean = 0.01*keV;
   fPRsigma = fPRmean/2;
   G4double PTX, PTY;
   GunRandomTransverseMomentum(PTX, PTY);
